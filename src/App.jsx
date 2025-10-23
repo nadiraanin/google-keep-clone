@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
-import NoteForm from './components/NoteForm';
-import NotesList from './components/NotesList';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Header from "./components/Header";
+import NoteForm from "./components/NoteForm";
+import NotesList from "./components/NotesList";
+import "./App.css";
 
 function App() {
   // State to store all notes
   const [notes, setNotes] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Load notes from localStorage when app starts
   useEffect(() => {
-    const savedNotes = localStorage.getItem('keepNotes');
+    const savedNotes = localStorage.getItem("keepNotes");
     if (savedNotes) {
       setNotes(JSON.parse(savedNotes));
     }
@@ -19,7 +19,7 @@ function App() {
 
   // Save notes to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem('keepNotes', JSON.stringify(notes));
+    localStorage.setItem("keepNotes", JSON.stringify(notes));
   }, [notes]); // Runs whenever notes array changes [cite: 603]
 
   // Function to add a new note
@@ -36,22 +36,34 @@ function App() {
 
   // Function to update an existing note
   const updateNote = (id, updatedNote) => {
-    setNotes(notes.map(note => (
-      note.id === id ? updatedNote : note
-    )));
+    setNotes(notes.map((note) => (note.id === id ? updatedNote : note)));
   };
 
   // Function to delete a note
   const deleteNote = (id) => {
-    setNotes(notes.filter(note => note.id !== id));
+    setNotes(notes.filter((note) => note.id !== id));
   };
 
-  const filteredNotes = notes.filter(note => {
+  // First sort notes by pin status
+  const sortedNotes = [...notes].sort(
+    (a, b) => (b.isPinned ? 1 : 0) - (a.isPinned ? 1 : 0)
+  );
+
+  // Then filter the sorted notes
+  const filteredNotes = sortedNotes.filter((note) => {
     const query = searchQuery.toLowerCase();
     const titleMatch = note.title.toLowerCase().includes(query);
     const contentMatch = note.content.toLowerCase().includes(query);
     return titleMatch || contentMatch;
   });
+
+  const togglePinNote = (id) => {
+    setNotes(
+      notes.map((note) =>
+        note.id === id ? { ...note, isPinned: !note.isPinned } : note
+      )
+    );
+  };
 
   return (
     <div className="app">
@@ -62,6 +74,7 @@ function App() {
           notes={filteredNotes}
           updateNote={updateNote}
           deleteNote={deleteNote}
+          togglePinNote={togglePinNote}
         />
       </main>
     </div>
