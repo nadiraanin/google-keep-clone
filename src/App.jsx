@@ -7,6 +7,7 @@ import './App.css';
 function App() {
   // State to store all notes
   const [notes, setNotes] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Load notes from localStorage when app starts
   useEffect(() => {
@@ -45,13 +46,20 @@ function App() {
     setNotes(notes.filter(note => note.id !== id));
   };
 
+  const filteredNotes = notes.filter(note => {
+    const query = searchQuery.toLowerCase();
+    const titleMatch = note.title.toLowerCase().includes(query);
+    const contentMatch = note.content.toLowerCase().includes(query);
+    return titleMatch || contentMatch;
+  });
+
   return (
     <div className="app">
-      <Header />
+      <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <main className="app-main">
         <NoteForm addNote={addNote} />
         <NotesList
-          notes={notes}
+          notes={filteredNotes}
           updateNote={updateNote}
           deleteNote={deleteNote}
         />

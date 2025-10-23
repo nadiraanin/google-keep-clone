@@ -27,3 +27,28 @@
     color: #5f6368;
     letter-spacing: 0.25px;
 }
+
+.header-search {
+  flex-grow: 1; /* Membuat search bar mengisi sisa ruang */
+  margin-left: 24px; /* Memberi jarak dari title */
+  padding: 10px 16px;
+  font-size: 16px;
+  font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+  color: #202124;
+  background-color: #f1f3f4; /* Warna latar belakang seperti Google */
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  max-width: 720px; /* Batas lebar maksimum */
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.header-search::placeholder {
+  color: #5f6368;
+}
+
+.header-search:focus {
+  background-color: #fff;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
+              0 1px 3px 1px rgba(60, 64, 67, 0.149);
+}

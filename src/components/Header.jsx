@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
 
-function Header() {
+function Header({ searchQuery, setSearchQuery }) {
   return (
     <header className="header">
       <div className="header-content">
@@ -15,6 +15,13 @@ function Header() {
           />
         </svg>
         <h1 className="header-title">Keep</h1>
+        <input
+          type="text"
+          placeholder="Search..."
+          className="header-search"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
       </div>
     </header>
   );
