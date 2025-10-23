@@ -84,5 +84,4 @@ function Note({ note, updateNote, deleteNote }) {
         </div>
     );
 }
-
 export default Note;
