@@ -29,6 +29,7 @@ function App() {
       title: noteData.title,
       content: noteData.content,
       createdAt: new Date().toISOString(),
+      color: '#ffffff',
     };
     // Add new note to beginning of array
     setNotes([newNote, ...notes]);
