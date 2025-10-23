@@ -141,10 +141,16 @@
 }
 
 .palette-icon {
+    /* Ganti dari span ke button tidak masalah, tapi kita pastikan stylenya benar */
+    background: none;
+    border: none;
     cursor: pointer;
-    font-size: 18px;
     padding: 8px;
     border-radius: 50%;
+    display: flex; /* Tambahkan ini agar SVG terpusat */
+    align-items: center; /* Tambahkan ini */
+    justify-content: center; /* Tambahkan ini */
+    color: #5f6368; /* Samakan dengan ikon lain */
     transition: background-color 0.2s;
 }
 
