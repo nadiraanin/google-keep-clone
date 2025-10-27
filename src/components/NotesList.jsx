@@ -3,7 +3,6 @@ import Note from "./Note";
 import "./NotesList.css";
 
 function NotesList({ notes, updateNote, deleteNote, togglePinNote }) {
-  // Bagian ini sudah benar, tidak perlu diubah
   if (notes.length === 0) {
     return (
       <div className="notes-empty">
@@ -13,14 +12,11 @@ function NotesList({ notes, updateNote, deleteNote, togglePinNote }) {
     );
   }
 
-  // --- TAMBAHKAN LOGIKA SORTING DI SINI ---
   const sortedNotes = [...notes].sort((a, b) => b.isPinned - a.isPinned);
-  // -----------------------------------------
 
   return (
     <div className="notes-container">
       <div className="notes-grid">
-        {/* Ganti 'notes' dengan 'sortedNotes' */}
         {sortedNotes.map((note) => (
           <Note
             key={note.id}
